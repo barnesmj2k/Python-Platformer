@@ -71,7 +71,7 @@ class Level():
         #     self.bg4.add(tile)
         
         self.hero.add(Hero((32,464), faceRight = True))
-        self.bees.add(Bee((200,100), moveRight = True))
+        self.bees.add(Bee((200,140), moveRight = True))
         self.bees.add(Bee((200,240), moveRight = False))
 
         self.displaySurface = displaySurface
