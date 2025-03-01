@@ -1,0 +1,25 @@
+# Assets:
+BACKGROUND_PATH = "../Assets/Background/"
+SPRITESHEET_PATH = "../Assets/SpriteSheets/Legacy-Fantasy - High Forest 2.3/"
+GHOST_SPRITESHEET_PATH = "../Assets/SpriteSheets/Ghost Runner/"
+LEVELS_PATH = "../Levels/"
+MUSIC_PATH = "../Assets/Sound/Music/"
+
+#Window Settings
+WINDOW_WIDTH, WINDOW_HEIGHT = 1000, 540
+
+LEVEL_WIDTH = 1920
+
+TILESIZE = 16
+
+GRAVITY = 0.6
+
+#BEE
+SPEED_BEE = 2
+ANIMSPEED_BEE = 0.2
+ANIMSPEED_BEE_ATTACK = 0.3
+
+#HERO
+ANIMSPEED_HERO_DEFAULT = 0.25
+ANIMSPEED_HERO_IDLE = 0.1
+SPEED_HERO = 4
