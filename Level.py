@@ -8,7 +8,7 @@ from ClassTile import Tile
 from ClassBackground import Background
 
 class Level():
-    def __init__(self, displaySurface):
+    def __init__(self, displaySurface, first_time_loading):
         # Load the level tmx file
         # self.levelData = load_pygame(LEVELS_PATH + "Level1/level.tmx")
         self.levelData = load_pygame(LEVELS_PATH + "Level1/nightLevel.tmx")
@@ -18,10 +18,13 @@ class Level():
         self.scrollThreshold = WINDOW_WIDTH // 2
 
         # Zoom effect variables
-        self.zoom_factor = 2.5      # Start with a high zoom level
-        self.zoom_speed = 0.002     # How quickly the zoom out happens
+        if first_time_loading:
+            self.zoom_factor = 2.5  # Start with a high zoom level
+        else:
+            self.zoom_factor = 1.0
+        self.zoom_speed = 0.003     # How quickly the zoom out happens
         self.target_zoom = 1.0      # The normal zoom level
-        self.zooming = True         # Flag to control zoom animation
+        self.zooming = first_time_loading   # Flag to control whether zoom animation happens
 
         # Create a camera surface for scaling
         self.camera_surface = pygame.Surface((WINDOW_WIDTH, WINDOW_HEIGHT))
@@ -35,7 +38,7 @@ class Level():
         self.platformTiles = pygame.sprite.Group()
         # self.foregroundTiles = pygame.sprite.Group()  # Foreground layer
         self.bg1 = pygame.sprite.Group()        # Background 1
-        # self.bg2 = pygame.sprite.Group()        # Background 1
+        self.bg2 = pygame.sprite.Group()        # Background 1
         # self.bg3 = pygame.sprite.Group()        # Background 1
         # self.bg4 = pygame.sprite.Group()        # Background 1
 
@@ -55,10 +58,10 @@ class Level():
             tile = Tile((x*TILESIZE, y*TILESIZE), tileSurface)
             self.bg1.add(tile)
 # 
-        # layer = self.levelData.get_layer_by_name('Background2')
-        # for x, y, tileSurface in layer.tiles():
-        #     tile = Tile((x*TILESIZE, y*TILESIZE), tileSurface)
-        #     self.bg2.add(tile)
+        layer = self.levelData.get_layer_by_name('Background2')
+        for x, y, tileSurface in layer.tiles():
+            tile = Tile((x*TILESIZE, y*TILESIZE), tileSurface)
+            self.bg2.add(tile)
 # 
         # layer = self.levelData.get_layer_by_name('Background3')
         # for x, y, tileSurface in layer.tiles():
@@ -106,7 +109,7 @@ class Level():
         # Draw background first
         self.background.draw(self.camera_surface)
         
-        for layer in [self.bg1, self.platformTiles, self.bees, self.hero]:
+        for layer in [self.bg2, self.bg1, self.platformTiles, self.bees, self.hero]:
             for sprite in layer:
                 adjustedX = sprite.rect.x - self.cameraOffsetX # calculate position
                 self.camera_surface.blit(sprite.image, (adjustedX, sprite.rect.y)) # draw at adjusted point

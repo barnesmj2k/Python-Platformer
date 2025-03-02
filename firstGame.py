@@ -21,10 +21,15 @@ mixer.music.set_volume(0.7)
 # Start playing the song 
 mixer.music.play() 
 
-def restartGame():
-    return Level(displaySurface) #  reinitialize level
+# global variable to track first time loading
+first_time_loading = True
 
-level = Level(displaySurface)
+def restartGame():
+    global first_time_loading
+    first_time_loading = False
+    return Level(displaySurface, first_time_loading) #  reinitialize level
+
+level = Level(displaySurface, first_time_loading)
 
 
 isGameRunning = True
